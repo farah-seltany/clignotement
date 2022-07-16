@@ -1,59 +1,73 @@
 <template>
-  <div class="circle"
+  <div
+    class="circle"
     v-if="display"
     v-bind:style="{
-    top: customStyle.top,
-    left: customStyle.left,
-    backgroundColor: customStyle.color,
-    width: customStyle.width,
-    height: customStyle.width
-  }">
-  </div>
+      top: `${customStyle.top}px`,
+      left: `${customStyle.left}px`,
+      backgroundColor: customStyle.color,
+      width: `${customStyle.width}px`,
+      height: `${customStyle.width}px`,
+    }"
+  ></div>
 </template>
 
 <script>
 export default {
   name: "CircleComponent",
-  data(){
+  data() {
     return {
-      colors: ['#8a307f', '#a2d5c6', '#077b8a', '#5c3c92', '#79a7d3', '#d71b3b', '#e8d71e'],
+      colors: [
+        "#8a307f",
+        "#a2d5c6",
+        "#077b8a",
+        "#5c3c92",
+        "#79a7d3",
+        "#d71b3b",
+        "#e8d71e",
+      ],
       customStyle: {
         left: 0,
         top: 0,
         color: null,
         width: 0,
       },
-      display: false
-    }
+      display: false,
+    };
   },
   watch: {
     display() {
-      if(!this.display) {
-        this.initCircle()
+      if (!this.display) {
+        this.initCircle();
       }
-    }
+    },
   },
   methods: {
     initCircle() {
-      this.customStyle.left = Math.random() * window.innerWidth + 'px';
-      this.customStyle.top = Math.random() * window.innerHeight + 'px';
-      this.customStyle.color = this.colors[Math.floor(Math.random() * this.colors.length)];
-      this.customStyle.width = (Math.random() * (6 - 2) + 2) + 'em';
+      this.customStyle.color =
+        this.colors[Math.floor(Math.random() * this.colors.length)];
+      this.customStyle.width = Math.floor(Math.random() * (120 - 20) + 20);
+      this.customStyle.left = Math.floor(
+        Math.random() * (window.innerWidth - this.customStyle.width * 1.3)
+      );
+      this.customStyle.top = Math.floor(
+        Math.random() * (window.innerHeight - this.customStyle.width)
+      );
       this.display = true;
       setTimeout(() => {
-        this.display = false
-      }, Math.random() * 2000)
+        this.display = false;
+      }, Math.random() * 2000);
     },
   },
   mounted() {
-    this.initCircle()
-  }
-}
+    this.initCircle();
+  },
+};
 </script>
 
 <style scoped>
-  .circle {
-    position: absolute;
-    border-radius: 50%;
-  }
+.circle {
+  position: absolute;
+  border-radius: 50%;
+}
 </style>
